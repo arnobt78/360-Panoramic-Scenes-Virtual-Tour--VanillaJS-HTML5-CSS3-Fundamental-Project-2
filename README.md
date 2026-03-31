@@ -1,15 +1,6 @@
-# 360° Panoramic Scenes Virtual Tour Brain Tree - Javascript Web Application
+# 360° Panoramic Scenes Virtual Tour Brain Tree - JavaScript (Vanilla), HTML5, CSS3, History API, Intersection Observer Fundamental Project 2 (Framework-free SPA)
 
-![Screenshot 2025-07-28 at 01 31 51](https://github.com/user-attachments/assets/21d8d883-2421-4964-af66-a98cc36c9c10)
-![Screenshot 2025-07-28 at 01 32 05](https://github.com/user-attachments/assets/3c076c90-bb18-43d3-b002-671d2fe5543a)
-![Screenshot 2025-07-28 at 01 32 22](https://github.com/user-attachments/assets/82fb7ade-c8bc-4232-b29d-a90686054601)
-![Screenshot 2025-07-28 at 01 36 40](https://github.com/user-attachments/assets/7bfe4fc1-b295-49f1-b2b6-31e08b54631b)
-
----
-
-## Project Summary
-
-This project is a browser-based 360° virtual tour, a Braintree web application. It allows users to explore panoramic scenes, navigate between different rooms or areas, and interact with hotspots for information or navigation. The app is built using [Marzipano](https://www.marzipano.net/), a 360° media viewer library, and is fully client-side, requiring no backend server.
+A browser-based 360° virtual tour, a Braintree web application. It allows users to explore panoramic scenes, navigate between different rooms or areas, and interact with hotspots for information or navigation. The app is built using [Marzipano](https://www.marzipano.net/), a 360° media viewer library, and is fully client-side, requiring no backend server.
 
 - **Live Demo:** [https://braintree-virtual-tour.netlify.app/](https://braintree-virtual-tour.netlify.app/)
 
@@ -52,7 +43,7 @@ This project is a browser-based 360° virtual tour, a Braintree web application.
 ├── index.js             # Main JavaScript logic
 ├── style.css            # Custom styles
 ├── vendor/              # Third-party libraries (Marzipano, Bowser, etc.)
-├── img/                 # UI icons and images
+├── /public/images                 # UI icons and images
 └── tiles/               # Panoramic image tiles for each scene
 ```
 
@@ -74,7 +65,7 @@ This project is a browser-based 360° virtual tour, a Braintree web application.
 - `index.html` provides the UI structure, including the panorama container, scene list, and controls.
 - `index.js` initializes Marzipano, loads scenes, sets up navigation and info hotspots, and manages UI interactions (fullscreen, autorotate, etc).
 - Panoramic images are stored in the `tiles/` directory, organized by scene and resolution level.
-- The UI is styled via `style.css` and uses icons from the `img/` folder.
+- The UI is styled via `style.css` and uses icons from the `/public/images` folder.
 
 ---
 
@@ -134,7 +125,7 @@ This project is a browser-based 360° virtual tour, a Braintree web application.
 
 - Contains subfolders for each scene (e.g., `0-entrance/`), each with preview and tiled images for multiple resolutions and cube faces.
 
-### 7. `img/`
+### 7. `/public/images`
 
 - UI icons for controls and hotspots (e.g., play, pause, fullscreen, info, arrows).
 

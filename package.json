@@ -1,0 +1,14 @@
+{
+  "name": "360-virtual-tour",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Modernized vanilla JS 360 virtual tour showcase",
+  "scripts": {
+    "lint": "eslint .",
+    "build": "node scripts/copy-static.mjs",
+    "vercel-build": "node scripts/copy-static.mjs"
+  },
+  "devDependencies": {
+    "eslint": "^9.37.0"
+  }
+}

@@ -1,129 +1,168 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>360° Virtual Tour | Explore Interactive Panoramic Scenes</title>
-<meta name="description" content="Experience an immersive 360-degree virtual tour. Explore interactive panoramic scenes of various rooms and areas. Created by Arnob Mahmud.">
-<meta name="author" content="Arnob Mahmud">
-<meta name="contact" content="arnob_t78@yahoo.com">
-<meta name="url" content="https://arnob-mahmud.vercel.app/">
-<meta name="keywords" content="360 virtual tour, panoramic, interactive, rooms, corridor, lounge, kitchen, immersive, Arnob Mahmud, javascript, web, experience, explore, virtual reality, VR">
-<meta property="og:title" content="360° Virtual Tour | Explore Interactive Panoramic Scenes">
-<meta property="og:description" content="Experience an immersive 360-degree virtual tour. Explore interactive panoramic scenes of various rooms and areas.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://arnob-mahmud.vercel.app/">
-<meta property="og:image" content="img/preview.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="360° Virtual Tour | Explore Interactive Panoramic Scenes">
-<meta name="twitter:description" content="Experience an immersive 360-degree virtual tour. Explore interactive panoramic scenes of various rooms and areas.">
-<meta name="twitter:image" content="img/preview.jpg">
-<meta charset="utf-8">
-<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
-<style> @-ms-viewport { width: device-width; } </style>
-<link rel="stylesheet" href="vendor/reset.min.css">
-<link rel="stylesheet" href="style.css">
-</head>
-<body class="multiple-scenes ">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>360° Virtual Tour | Modern Vanilla JS Showcase</title>
+    <meta
+      name="description"
+      content="A stylish beginner-friendly 360-degree virtual tour showcase built with vanilla JavaScript, HTML, and CSS with interactive scenes, hotspots, and smooth UI animations."
+    />
+    <meta
+      name="keywords"
+      content="360 virtual tour, marzipano, vanilla javascript, html css, educational project, ui animation, responsive design"
+    />
+    <meta name="author" content="Arnob Mahmud" />
+    <meta property="og:title" content="360° Virtual Tour | Vanilla JS Showcase" />
+    <meta
+      property="og:description"
+      content="Explore interactive panoramic scenes with a modern, responsive and educational vanilla JS UI."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/public/imagespreview.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="360° Virtual Tour | Modern Vanilla JS Showcase"
+    />
+    <meta
+      name="twitter:description"
+      content="Interactive 360-degree tour with smooth animations, dynamic sections and deployment-ready structure."
+    />
+    <meta name="twitter:image" content="/public/imagespreview.jpg" />
+    <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
+    <link rel="shortcut icon" href="/public/favicon.svg" />
+    <link rel="stylesheet" href="vendor/reset.min.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="multiple-scenes">
+    <div class="site-bg parallax-layer" aria-hidden="true"></div>
 
-<div id="pano"></div>
+    <header class="site-header">
+      <div class="max-w-9xl header-inner">
+        <a href="#tour" class="brand">
+          <img src="/public/favicon.svg" alt="Project logo" />
+          <span>Virtual Tour Showcase</span>
+        </a>
+        <nav class="top-nav">
+          <a href="#tour">Tour</a>
+          <a href="#features">Features</a>
+          <a href="#learning">Learning</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+    </header>
 
-<div id="sceneList">
-  <ul class="scenes">
-    
-      <a href="javascript:void(0)" class="scene" data-id="0-entrance">
-        <li class="text">Entrance</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="1-main-corridor">
-        <li class="text">Main Corridor</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="2-sun-lounge">
-        <li class="text">Sun Lounge</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="3-lounge-a">
-        <li class="text">Lounge A</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="4-lounge-b">
-        <li class="text">Lounge B</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="5-lounge-c">
-        <li class="text">Lounge C</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="6-queit-area">
-        <li class="text">Queit Area</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="7-kitchen">
-        <li class="text">Kitchen</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="8-upstairs-corridor">
-        <li class="text">Upstairs Corridor</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="9-room-a">
-        <li class="text">Room A</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="10-room-b">
-        <li class="text">Room B</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="11-room-c">
-        <li class="text">Room C</li>
-      </a>
-    
-  </ul>
-</div>
+    <main class="page-content">
+      <section class="hero max-w-9xl reveal" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">Vanilla JS + HTML + CSS</p>
+          <h1>Modern 360° Tour Learning Project</h1>
+          <p>
+            Explore immersive scenes, study reusable UI patterns, and learn how
+            a plain JavaScript project can look modern, smooth and deployment-ready.
+          </p>
+          <div class="hero-badges" id="heroBadges"></div>
+        </div>
+        <aside class="hero-sidebar reveal">
+          <h2>Quick Navigator</h2>
+          <div id="sceneQuickJump"></div>
+          <label for="sceneFilter" class="sr-only">Filter scenes</label>
+          <select id="sceneFilter"></select>
+        </aside>
+      </section>
 
-<div id="titleBar">
-  <h1 class="sceneName"></h1>
-</div>
+      <section class="tour-wrapper max-w-9xl reveal" id="tour">
+        <div class="tour-stage" id="tourExperience">
+          <div id="pano"></div>
 
-<a href="javascript:void(0)" id="autorotateToggle">
-  <img class="icon off" src="img/play.png">
-  <img class="icon on" src="img/pause.png">
-</a>
+          <div id="sceneList">
+            <ul class="scenes">
+              <a href="javascript:void(0)" class="scene" data-id="0-entrance"><li class="text">Entrance</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="1-main-corridor"><li class="text">Main Corridor</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="2-sun-lounge"><li class="text">Sun Lounge</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="3-lounge-a"><li class="text">Lounge A</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="4-lounge-b"><li class="text">Lounge B</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="5-lounge-c"><li class="text">Lounge C</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="6-queit-area"><li class="text">Queit Area</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="7-kitchen"><li class="text">Kitchen</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="8-upstairs-corridor"><li class="text">Upstairs Corridor</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="9-room-a"><li class="text">Room A</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="10-room-b"><li class="text">Room B</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="11-room-c"><li class="text">Room C</li></a>
+            </ul>
+          </div>
 
-<a href="javascript:void(0)" id="fullscreenToggle">
-  <img class="icon off" src="img/fullscreen.png">
-  <img class="icon on" src="img/windowed.png">
-</a>
+          <div id="titleBar"><h2 class="sceneName"></h2></div>
 
-<a href="javascript:void(0)" id="sceneListToggle">
-  <img class="icon off" src="img/expand.png">
-  <img class="icon on" src="img/collapse.png">
-</a>
+          <a href="javascript:void(0)" id="autorotateToggle">
+            <img class="icon off" src="/public/images/play.png" alt="Start autoplay" />
+            <img class="icon on" src="/public/images/pause.png" alt="Stop autoplay" />
+          </a>
 
-<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
-  <img class="icon" src="img/up.png">
-</a>
-<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
-  <img class="icon" src="img/down.png">
-</a>
-<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
-  <img class="icon" src="img/left.png">
-</a>
-<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
-  <img class="icon" src="img/right.png">
-</a>
-<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
-  <img class="icon" src="img/plus.png">
-</a>
-<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
-  <img class="icon" src="img/minus.png">
-</a>
+          <a href="javascript:void(0)" id="fullscreenToggle">
+            <img class="icon off" src="/public/images/fullscreen.png" alt="Enter fullscreen" />
+            <img class="icon on" src="/public/images/windowed.png" alt="Exit fullscreen" />
+          </a>
 
-<script src="vendor/screenfull.min.js" ></script>
-<script src="vendor/bowser.min.js" ></script>
-<script src="vendor/marzipano.js" ></script>
+          <a href="javascript:void(0)" id="sceneListToggle">
+            <img class="icon off" src="/public/images/expand.png" alt="Open scene list" />
+            <img class="icon on" src="/public/images/collapse.png" alt="Close scene list" />
+          </a>
 
-<script src="data.js"></script>
-<script src="index.js"></script>
+          <a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1"><img class="icon" src="/public/images/up.png" alt="Look up" /></a>
+          <a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2"><img class="icon" src="/public/images/down.png" alt="Look down" /></a>
+          <a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3"><img class="icon" src="/public/images/left.png" alt="Look left" /></a>
+          <a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4"><img class="icon" src="/public/images/right.png" alt="Look right" /></a>
+          <a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5"><img class="icon" src="/public/images/plus.png" alt="Zoom in" /></a>
+          <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6"><img class="icon" src="/public/images/minus.png" alt="Zoom out" /></a>
+        </div>
+      </section>
 
-</body>
+      <section id="features" class="max-w-9xl reveal section-shell">
+        <h2>Feature Highlights</h2>
+        <div id="featureCards" class="grid-cards"></div>
+      </section>
+
+      <section id="learning" class="max-w-9xl reveal section-shell">
+        <h2>Learning Components</h2>
+        <div id="learningTabs"></div>
+      </section>
+
+      <section id="gallery" class="max-w-9xl reveal section-shell">
+        <h2>Visual Inspiration Gallery</h2>
+        <div id="dynamicGallery" class="gallery-grid"></div>
+      </section>
+
+      <section id="stats" class="max-w-9xl reveal section-shell">
+        <h2>Project Snapshot</h2>
+        <div id="statsBadges" class="badge-row"></div>
+        <div class="table-wrap">
+          <table id="sceneTable"></table>
+        </div>
+      </section>
+
+      <section id="faq" class="max-w-9xl reveal section-shell">
+        <h2>Frequently Asked Questions</h2>
+        <div id="faqDropdowns"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="max-w-9xl">
+        <p>Built for educational learning with vanilla JavaScript fundamentals.</p>
+        <p id="copyrightLine"></p>
+      </div>
+    </footer>
+
+    <script src="vendor/screenfull.min.js"></script>
+    <script src="vendor/bowser.min.js"></script>
+    <script src="vendor/marzipano.js"></script>
+    <script src="data.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>
