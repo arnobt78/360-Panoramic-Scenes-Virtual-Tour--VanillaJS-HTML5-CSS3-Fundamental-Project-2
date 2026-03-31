@@ -131,6 +131,37 @@ a {
   font-size: clamp(1.7rem, 5vw, 3.2rem);
 }
 
+.hero-subtitle {
+  margin: 0.1rem 0 0.75rem;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.hero-copy p {
+  margin: 0;
+}
+
+.hero-copy p + p {
+  margin-top: 0.55rem;
+}
+
+.hero-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.hero-meta-row span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  background: rgba(8, 14, 28, 0.58);
+}
+
 .eyebrow {
   color: var(--accent);
   letter-spacing: 0.09em;
@@ -141,6 +172,9 @@ a {
 
 .hero-sidebar {
   padding: 1rem 1rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
 }
 
 .floor-mini-map {
@@ -170,7 +204,7 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.05rem;
 }
 
 .badge {
@@ -191,7 +225,7 @@ a {
   border-radius: 24px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
-  min-height: 72vh;
+  min-height: 78vh;
 }
 
 #pano {
@@ -315,7 +349,7 @@ th {
 #sceneQuickJump {
   display: grid;
   gap: 0.45rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.9rem;
 }
 
 .quick-jump-btn,
@@ -345,12 +379,14 @@ th {
 
 .tour-stage-tools {
   position: absolute;
-  left: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 12px;
   z-index: 70;
   display: flex;
   gap: 0.4rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .tour-tool-btn {
@@ -747,7 +783,7 @@ body.view-control-buttons .viewControlButton {
   }
 
   .tour-stage {
-    min-height: 58vh;
+    min-height: 64vh;
   }
 
   .grid-cards,
@@ -758,8 +794,8 @@ body.view-control-buttons .viewControlButton {
 
   .tour-stage-tools {
     bottom: 10px;
-    left: 10px;
-    right: 10px;
+    left: 50%;
+    right: auto;
   }
 
   #titleBar {
