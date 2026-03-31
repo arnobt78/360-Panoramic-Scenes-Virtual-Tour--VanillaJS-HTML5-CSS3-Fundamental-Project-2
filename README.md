@@ -1,4 +1,4 @@
-# 360° Panoramic Scenes Virtual Tour Brain Tree - JavaScript (Vanilla), HTML5, CSS3, Marzipano Library, Fundamental Project 2 (Framework-free SPA)
+# 360° Panoramic Scenes Virtual Tour - JavaScript (Vanilla), HTML5, CSS3, Marzipano Library, Fundamental Project 2 (Framework-free SPA)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Vanilla JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)

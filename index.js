@@ -24,6 +24,7 @@
   const tourPrevBtnElement = document.querySelector("#tourPrevBtn");
   const tourNextBtnElement = document.querySelector("#tourNextBtn");
   const tourPlayBtnElement = document.querySelector("#tourPlayBtn");
+  const tourPlayLabelElement = document.querySelector("#tourPlayLabel");
   const tourProgressBarElement = document.querySelector("#tourProgressBar");
   const shortcutHelpBtnElement = document.querySelector("#shortcutHelpBtn");
   const shortcutModalElement = document.querySelector("#shortcutModal");
@@ -449,7 +450,10 @@
   function setGuidedTourPlaying(isPlaying) {
     uiState.guidedTourPlaying = isPlaying;
     if (tourPlayBtnElement) {
-      tourPlayBtnElement.textContent = isPlaying ? "Tour Pause" : "Tour Play";
+      tourPlayBtnElement.classList.toggle("playing", isPlaying);
+    }
+    if (tourPlayLabelElement) {
+      tourPlayLabelElement.textContent = isPlaying ? "Tour Pause" : "Tour Play";
     }
     if (!isPlaying && uiState.guidedTourTimer) {
       window.clearInterval(uiState.guidedTourTimer);
@@ -594,9 +598,11 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url);
       }
-      copySceneLinkBtnElement.textContent = "Copied";
+      const originalContent = copySceneLinkBtnElement.innerHTML;
+      copySceneLinkBtnElement.innerHTML =
+        '<img src="/public/images/tick.png" alt="" aria-hidden="true" /><span>Copied!</span>';
       window.setTimeout(function () {
-        copySceneLinkBtnElement.textContent = "Copy Link";
+        copySceneLinkBtnElement.innerHTML = originalContent;
       }, 1200);
     });
   }

@@ -391,16 +391,37 @@ th {
 
 .tour-tool-btn {
   border: 1px solid var(--border);
-  background: rgba(8, 14, 28, 0.86);
+  background: rgba(8, 14, 28, 0.82);
   color: var(--text);
   border-radius: 8px;
-  padding: 0.35rem 0.6rem;
+  padding: 0.35rem 0.58rem;
   font-size: 0.78rem;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
 }
 
 .tour-tool-btn:hover {
   border-color: var(--accent-2);
+}
+
+.tour-tool-btn img {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+}
+
+#tourPlayBtn .icon-play.on {
+  display: none;
+}
+
+#tourPlayBtn.playing .icon-play.on {
+  display: inline-block;
+}
+
+#tourPlayBtn.playing .icon-play.off {
+  display: none;
 }
 
 .tour-progress-wrap {
@@ -555,21 +576,29 @@ kbd {
 #titleBar {
   position: absolute;
   top: 0;
-  left: 56px;
-  right: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  max-width: min(70vw, 420px);
   height: 46px;
   text-align: center;
   z-index: 60;
+  pointer-events: none;
 }
 
 #titleBar .sceneName {
   margin: 0;
+  display: inline-block;
+  min-width: 180px;
+  max-width: min(70vw, 420px);
   line-height: 46px;
+  padding: 0 1rem;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   background: rgba(8, 14, 28, 0.72);
   backdrop-filter: blur(6px);
+  border-radius: 0 0 10px 10px;
 }
 
 #fullscreenToggle,
@@ -799,8 +828,7 @@ body.view-control-buttons .viewControlButton {
   }
 
   #titleBar {
-    right: 46px;
-    left: 46px;
+    max-width: min(74vw, 340px);
   }
 
   #sceneList {

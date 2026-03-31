@@ -101,14 +101,15 @@
           <h1>Modern 360° Tour Learning Project</h1>
           <h2 class="hero-subtitle">Interactive Panoramic Learning Showcase</h2>
           <p>
-            Explore immersive scenes while learning a complete beginner-to-intermediate
-            frontend workflow: scene-based architecture with Marzipano, reusable DOM
-            rendering utilities, responsive layout strategy, smooth interaction states,
-            accessibility-aware controls, SEO-ready metadata, and production-focused
-            Vercel deployment. This project is designed as a practical reference template
-            for building virtual tours for schools, museums, offices, real estate, and
-            portfolio showcases using clean vanilla JavaScript fundamentals without heavy
-            frameworks.
+            Explore immersive scenes while learning a complete
+            beginner-to-intermediate frontend workflow: scene-based architecture
+            with Marzipano, reusable DOM rendering utilities, responsive layout
+            strategy, smooth interaction states, accessibility-aware controls,
+            SEO-ready metadata, and production-focused Vercel deployment. This
+            project is designed as a practical reference template for building
+            virtual tours for schools, museums, offices, real estate, and
+            portfolio showcases using clean vanilla JavaScript fundamentals
+            without heavy frameworks.
           </p>
           <div class="hero-meta-row">
             <span>12 Scenes</span>
@@ -139,35 +140,92 @@
       <!-- Tour Stage: Marzipano canvas and all runtime controls/hotspots. -->
       <section class="tour-wrapper max-w-9xl reveal" id="tour">
         <div class="tour-stage" id="tourExperience">
-          <div id="sceneLoadingOverlay" class="scene-loading-overlay" aria-hidden="true">
+          <div
+            id="sceneLoadingOverlay"
+            class="scene-loading-overlay"
+            aria-hidden="true"
+          >
             <div class="loader-dot"></div>
             <p>Switching scene...</p>
           </div>
           <div class="tour-stage-tools">
-            <button id="tourPrevBtn" type="button" class="tour-tool-btn" aria-label="Previous scene">
-              Prev
+            <button
+              id="tourPrevBtn"
+              type="button"
+              class="tour-tool-btn"
+              aria-label="Previous scene"
+            >
+              <img src="/public/images/left.png" alt="" aria-hidden="true" />
+              <span>Prev</span>
             </button>
-            <button id="tourPlayBtn" type="button" class="tour-tool-btn" aria-label="Toggle guided tour autoplay">
-              Tour Play
+            <button
+              id="tourPlayBtn"
+              type="button"
+              class="tour-tool-btn"
+              aria-label="Toggle guided tour autoplay"
+            >
+              <img
+                class="icon-play off"
+                src="/public/images/play.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <img
+                class="icon-play on"
+                src="/public/images/pause.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <span id="tourPlayLabel">Tour Play</span>
             </button>
-            <button id="tourNextBtn" type="button" class="tour-tool-btn" aria-label="Next scene">
-              Next
+            <button
+              id="tourNextBtn"
+              type="button"
+              class="tour-tool-btn"
+              aria-label="Next scene"
+            >
+              <span>Next</span>
+              <img src="/public/images/right.png" alt="" aria-hidden="true" />
             </button>
-            <button id="copySceneLinkBtn" type="button" class="tour-tool-btn" aria-label="Copy current scene link">
-              Copy Link
+            <button
+              id="copySceneLinkBtn"
+              type="button"
+              class="tour-tool-btn"
+              aria-label="Copy current scene link"
+            >
+              <img src="/public/images/copy.png" alt="" aria-hidden="true" />
+              <span>Copy Link</span>
             </button>
-            <button id="shortcutHelpBtn" type="button" class="tour-tool-btn" aria-label="Open keyboard shortcuts help">
-              Shortcuts
+            <button
+              id="shortcutHelpBtn"
+              type="button"
+              class="tour-tool-btn"
+              aria-label="Open keyboard shortcuts help"
+            >
+              <img
+                src="/public/images/shortcuts.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <span>Shortcuts</span>
             </button>
           </div>
-          <div id="tourProgressWrap" class="tour-progress-wrap" aria-label="Guided tour progress">
+          <div
+            id="tourProgressWrap"
+            class="tour-progress-wrap"
+            aria-label="Guided tour progress"
+          >
             <div id="tourProgressBar" class="tour-progress-bar"></div>
           </div>
           <div id="pano"></div>
 
           <div id="sceneList">
             <div class="scene-list-tools">
-              <button id="clearSceneFiltersBtn" type="button" class="scene-list-clear">
+              <button
+                id="clearSceneFiltersBtn"
+                type="button"
+                class="scene-list-clear"
+              >
                 Reset filters
               </button>
             </div>
@@ -338,7 +396,12 @@
 
     <div id="shortcutModal" class="shortcut-modal" aria-hidden="true">
       <div class="shortcut-modal-backdrop" data-close-shortcuts="true"></div>
-      <div class="shortcut-modal-card" role="dialog" aria-modal="true" aria-labelledby="shortcutModalTitle">
+      <div
+        class="shortcut-modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="shortcutModalTitle"
+      >
         <h3 id="shortcutModalTitle">Keyboard Shortcuts</h3>
         <ul class="shortcut-list">
           <li><kbd>F</kbd> Toggle fullscreen</li>
