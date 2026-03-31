@@ -1,36 +1,91 @@
-# 360° Panoramic Scenes Virtual Tour Brain Tree - JavaScript (Vanilla), HTML5, CSS3, History API, Intersection Observer Fundamental Project 2 (Framework-free SPA)
+# 360° Panoramic Scenes Virtual Tour Brain Tree - JavaScript (Vanilla), HTML5, CSS3, Marzipano Library, Fundamental Project 2 (Framework-free SPA)
 
-A browser-based 360° virtual tour, a Braintree web application. It allows users to explore panoramic scenes, navigate between different rooms or areas, and interact with hotspots for information or navigation. The app is built using [Marzipano](https://www.marzipano.net/), a 360° media viewer library, and is fully client-side, requiring no backend server.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Vanilla JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![HTML5](https://img.shields.io/badge/HTML5-Structure-E34F26)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-Styling-1572B6)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![Marzipano](https://img.shields.io/badge/Marzipano-360°_Viewer-1f8ceb)](https://www.marzipano.net/)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black)](https://vercel.com/)
 
-- **Live Demo:** [https://braintree-virtual-tour.netlify.app/](https://braintree-virtual-tour.netlify.app/)
+A beginner-friendly, framework-free 360° virtual tour web app designed for learning modern frontend fundamentals while building something practical and interactive. It demonstrates how to combine panoramic scene rendering, reusable UI patterns, responsive design, and deployment-ready structure using only vanilla JavaScript, HTML, and CSS.
+
+- **Live Demo:** [https://360-panoramic-tour.vercel.app/](https://360-panoramic-tour.vercel.app/)
 
 ---
 
 ## Table of Contents
 
-- [Project Summary](#project-summary)
-- [Features](#features)
+- [Project Overview](#project-overview)
+- [Key Features](#key-features)
+- [Tech Stack & Libraries](#tech-stack--libraries)
 - [Project Structure](#project-structure)
-- [Technologies Used](#technologies-used)
-- [How It Works](#how-it-works)
-- [How to Run](#how-to-run)
-- [Component & API Walkthrough](#component--api-walkthrough)
-- [Reusing Components](#reusing-components)
-- [Example Usage](#example-usage)
+- [How the Project Works](#how-the-project-works)
+- [Environment Variables (.env)](#environment-variables-env)
+- [Installation & Local Run](#installation--local-run)
+- [Linting & Build](#linting--build)
+- [Deployment (Vercel)](#deployment-vercel)
+- [Detailed File Walkthrough](#detailed-file-walkthrough)
+- [Reusability Guide](#reusability-guide)
+- [Extending the Project](#extending-the-project)
+- [Beginner Learning Notes](#beginner-learning-notes)
+- [API / Backend Notes](#api--backend-notes)
 - [Keywords](#keywords)
 - [Conclusion](#conclusion)
 
 ---
 
-## Features
+## Project Overview
 
-- Interactive 360° panoramic viewer
-- Scene navigation via clickable hotspots
-- Info hotspots for contextual information
-- Responsive design for desktop and mobile
-- Fullscreen and autorotate support
-- Scene list for quick navigation
-- Keyboard and button controls for view movement and zoom
+`360-virtual-tour` is a static Single Page Application (SPA) that lets users:
+
+- explore multiple 360° panoramic scenes,
+- switch scenes using sidebar navigation and hotspot links,
+- use autorotate and fullscreen controls,
+- interact with a modern educational UI shell (cards, tabs, table, FAQ, badges, gallery).
+
+The app uses scene data from `data.js` and renders visuals from tiled panoramic assets stored under `tiles/`.
+
+---
+
+## Key Features
+
+- Interactive 360° panorama viewer using Marzipano
+- Scene-to-scene navigation via clickable hotspots
+- Info hotspot modal support on mobile
+- Scene list sidebar with current-scene highlight
+- Fullscreen stage mode for immersive viewing
+- Autorotate toggle
+- Responsive layout (desktop + mobile)
+- Reusable UI sections for educational showcase:
+  - feature cards
+  - tabs
+  - FAQ dropdowns
+  - badge stats
+  - dynamic gallery with offline fallback
+- SEO metadata optimized for discoverability
+- Vercel-ready static deployment pipeline (`dist/` output)
+
+---
+
+## Tech Stack & Libraries
+
+### Core
+
+- **JavaScript (Vanilla)**: app logic, interactivity, rendering helpers
+- **HTML5**: semantic structure
+- **CSS3**: custom design system, animation, responsiveness
+
+### Libraries
+
+- **[Marzipano](https://www.marzipano.net/):** renders and controls 360° panoramic scenes
+- **Screenfull:** normalized fullscreen API behavior across browsers
+- **Bowser:** browser capability detection/fallback handling
+- **Reset CSS (`vendor/reset.min.css`)**: baseline style normalization
+
+### Tooling
+
+- **ESLint:** code quality checks
+- **Node scripts:** static file build/copy for deployment
 
 ---
 
@@ -38,133 +93,255 @@ A browser-based 360° virtual tour, a Braintree web application. It allows users
 
 ```bash
 360-virtual-tour/
-├── data.js              # Scene and hotspot configuration (JSON)
-├── index.html           # Main HTML file
-├── index.js             # Main JavaScript logic
-├── style.css            # Custom styles
-├── vendor/              # Third-party libraries (Marzipano, Bowser, etc.)
-├── /public/images                 # UI icons and images
-└── tiles/               # Panoramic image tiles for each scene
+├── index.html                     # Main page structure + metadata
+├── index.js                       # Viewer setup + reusable UI rendering logic
+├── style.css                      # Full styling system and responsive rules
+├── data.js                        # Scene graph, hotspots, initial camera params
+├── tiles/                         # Panorama tiles + preview assets per scene
+├── public/
+│   ├── favicon.svg                # Favicon / logo
+│   └── images/                    # UI control icons
+├── vendor/                        # Third-party browser libraries
+├── scripts/
+│   └── copy-static.mjs            # Build script to create dist/
+├── docs/                          # Project/deployment/styling notes
+├── package.json                   # Scripts + dev dependencies
+├── vercel.json                    # Build/output/SPA rewrite config
+└── README.md                      # Project documentation
 ```
 
 ---
 
-## Technologies Used
+## How the Project Works
 
-- **HTML5/CSS3/JavaScript**: Core web technologies
-- **[Marzipano](https://www.marzipano.net/)**: 360° panorama viewer
-- **Bowser**: Browser detection
-- **Screenfull**: Fullscreen API wrapper
-- **Eric Meyer's Reset CSS**: CSS reset for cross-browser consistency
+### 1) Scene Data Layer (`data.js`)
 
----
+Defines a global `APP_DATA` object with:
 
-## How It Works
+- scene ids and names,
+- tile level sizes,
+- initial yaw/pitch/fov,
+- link hotspots (`target` scene),
+- info hotspots (title/text blocks),
+- viewer settings.
 
-- The app loads scene and hotspot data from `data.js`.
-- `index.html` provides the UI structure, including the panorama container, scene list, and controls.
-- `index.js` initializes Marzipano, loads scenes, sets up navigation and info hotspots, and manages UI interactions (fullscreen, autorotate, etc).
-- Panoramic images are stored in the `tiles/` directory, organized by scene and resolution level.
-- The UI is styled via `style.css` and uses icons from the `/public/images` folder.
+### 2) Viewer Layer (`index.js`)
 
----
+- initializes Marzipano viewer,
+- creates scene instances dynamically from `APP_DATA`,
+- binds controls (up/down/left/right/zoom),
+- handles sidebar switching,
+- handles fullscreen/autorotate,
+- renders additional educational UI modules.
 
-## How to Run
+### 3) UI Layer (`index.html` + `style.css`)
 
-1. **Clone or download the repository.**
-2. **Start a local HTTP server in the project directory:**
-   - With Python 3:
-
-     ```sh
-     python3 -m http.server 8000
-     ```
-
-   - With Python 2:
-
-     ```sh
-     python -m SimpleHTTPServer 8000
-     ```
-
-3. **Open your browser and go to:**
-   [http://localhost:8000](http://localhost:8000)
+- top navigation and hero section,
+- embedded tour stage,
+- reusable content sections (cards, tabs, gallery, table, FAQ),
+- responsive behavior and transitions.
 
 ---
 
-## Component & API Walkthrough
+## Environment Variables (.env)
 
-### 1. `data.js`
+This project runs **without any required `.env` file**.
 
-- Contains a global `APP_DATA` object with all scene definitions, levels, initial view parameters, and hotspot data.
-- Each scene has:
-  - `id`, `name`, `levels` (tile resolutions), `faceSize`, `initialViewParameters`, `linkHotspots`, `infoHotspots`.
+### Required variables
 
-### 2. `index.html`
+- **None**
 
-- Loads all scripts and styles.
-- Contains UI elements: panorama container (`#pano`), scene list, title bar, control buttons.
+### Optional variables (only if you extend functionality)
 
-### 3. `index.js`
+If you later move to dynamic image APIs or analytics:
 
-- Initializes Marzipano viewer and loads scenes from `APP_DATA`.
-- Sets up navigation and info hotspots.
-- Handles UI events: scene switching, autorotate, fullscreen, view controls.
-- Responsive: switches between desktop and mobile layouts.
+- `UNSPLASH_ACCESS_KEY` (only if using official Unsplash API endpoints)
+- `VITE_ANALYTICS_ID` or similar (if analytics integration is added in future)
 
-### 4. `style.css`
-
-- Styles for layout, controls, scene list, hotspots, and responsive design.
-
-### 5. `vendor/`
-
-- `marzipano.js`: 360° viewer library
-- `bowser.min.js`: Browser detection
-- `screenfull.min.js`: Fullscreen API
-- `reset.min.css`: CSS reset
-
-### 6. `tiles/`
-
-- Contains subfolders for each scene (e.g., `0-entrance/`), each with preview and tiled images for multiple resolutions and cube faces.
-
-### 7. `/public/images`
-
-- UI icons for controls and hotspots (e.g., play, pause, fullscreen, info, arrows).
+For the current setup, image fallback works without keys, and deployment is purely static.
 
 ---
 
-## Reusing Components
+## Installation & Local Run
 
-- **Marzipano Integration**: You can reuse the Marzipano setup (`index.js`) in other projects by providing your own `data.js` and image tiles.
-- **Hotspot Logic**: The functions for creating link and info hotspots are modular and can be adapted for other interactive 360° viewers.
-- **UI Controls**: The control logic (autorotate, fullscreen, view movement) is generic and can be ported to similar projects.
+### Option A: Simple static server (fastest)
+
+```sh
+python3 -m http.server 8000
+```
+
+Open: [http://localhost:8000](http://localhost:8000)
+
+### Option B: Node workflow
+
+```sh
+npm install
+npm run build
+```
+
+Then serve `dist/` with any static server.
 
 ---
 
-## Example Usage
+## Linting & Build
 
-To add a new scene:
+### Lint
 
-1. Add a new folder in `tiles/` with the required image tiles and a `preview.jpg`.
-2. Add a new scene object in `data.js` with the correct `id`, `name`, and parameters.
-3. Add a new entry in the scene list in `index.html`.
+```sh
+npm run lint
+```
 
-To add a hotspot:
+### Build
 
-- Add a `linkHotspot` or `infoHotspot` entry in the relevant scene in `data.js`.
+```sh
+npm run build
+```
+
+Build output goes to `dist/` via `scripts/copy-static.mjs`.
+
+---
+
+## Deployment (Vercel)
+
+This project is configured as a plain JS static app:
+
+- `buildCommand`: `npm run build`
+- `outputDirectory`: `dist`
+- SPA rewrite to avoid refresh 404:
+  - all routes rewrite to `/index.html`
+
+See full deployment instructions in:
+
+- `docs/VERCEL-PLAIN-JS-DEPLOY.md`
+
+---
+
+## Detailed File Walkthrough
+
+### `index.html`
+
+- contains SEO metadata,
+- loads styles/scripts/vendors,
+- defines all layout sections and Marzipano control elements.
+
+### `index.js`
+
+- reusable helper functions for element creation/rendering,
+- scene creation and event wiring,
+- hotspot creation logic,
+- mobile/desktop mode handling,
+- section rendering for gallery/cards/tabs/FAQ.
+
+### `style.css`
+
+- color tokens and design variables,
+- reusable classes (`max-w-9xl`, cards, badges, tables),
+- scene control skinning,
+- responsive breakpoints,
+- reduced-motion accessibility handling.
+
+### `data.js`
+
+- source of truth for all scenes/hotspots.
+
+### `scripts/copy-static.mjs`
+
+- copies runtime files and directories to `dist/`,
+- cleans stale build output before each build.
+
+---
+
+## Reusability Guide
+
+You can reuse this project in other virtual tour apps by copying:
+
+- `index.js` scene bootstrap + hotspot functions
+- `style.css` control styles and section components
+- `scripts/copy-static.mjs` static deployment build logic
+
+### Reuse pattern example (UI render helper)
+
+```js
+function createElement(tag, className, text) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (typeof text === "string") el.textContent = text;
+  return el;
+}
+```
+
+This keeps rendering logic clean and beginner-friendly.
+
+---
+
+## Extending the Project
+
+### Add a new scene
+
+1. Add scene tiles under `tiles/<scene-id>/`
+2. Add scene object in `data.js`
+3. Add matching sidebar item in `index.html` (or generate dynamically if you prefer)
+
+### Add a new hotspot
+
+Add to `linkHotspots` or `infoHotspots` in the target scene object in `data.js`.
+
+### Add a new educational section
+
+1. Create a container in `index.html`
+2. Add styles in `style.css`
+3. Render with a reusable `init...()` function in `index.js`
+
+---
+
+## Beginner Learning Notes
+
+This project is useful to learn:
+
+- DOM selection, events, and state-by-class toggles
+- modular vanilla JS patterns without frameworks
+- responsive CSS strategies
+- progressive enhancement for fullscreen and touch behavior
+- static deployment architecture (build + rewrite)
+- SEO metadata fundamentals in pure HTML
+
+---
+
+## API / Backend Notes
+
+- **Backend:** None
+- **Database:** None
+- **External runtime API:** None required
+- **Architecture type:** fully static frontend SPA
+
+All scene and navigation logic is client-side and data-driven from local files.
 
 ---
 
 ## Keywords
 
-360°, panorama, virtual tour, Marzipano, JavaScript, web app, interactive, hotspot, fullscreen, responsive, scene navigation, info hotspot, open source
+360° virtual tour, panoramic scenes, Marzipano, Vanilla JavaScript, HTML5, CSS3, SPA, hotspot navigation, fullscreen panorama, responsive UI, educational frontend project, static deployment, Vercel.
 
 ---
 
 ## Conclusion
 
-This project is a robust template for building interactive 360° virtual tours on the web. It is easy to extend with new scenes, hotspots, and UI customizations. Perfect for real estate, education, museums, or any scenario requiring immersive navigation.
+This project is a practical and educational foundation for anyone learning frontend fundamentals through an interactive real-world build. It is intentionally framework-free, easy to inspect, and simple to extend into real estate tours, campus walkthroughs, museums, hospitality previews, and more.
 
 ---
 
-Happy coding! :sparkles:
+## License
 
-Thank you!
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute the code as per the terms of the license.
+
+## Happy Coding! 🎉
+
+This is an **open-source project** - feel free to use, enhance, and extend this project further!
+
+If you have any questions or want to share your work, reach out via GitHub or my portfolio at [https://www.arnobmahmud.com](https://www.arnobmahmud.com).
+
+**Enjoy building and learning!** 🚀
+
+Thank you! 😊
+
+---

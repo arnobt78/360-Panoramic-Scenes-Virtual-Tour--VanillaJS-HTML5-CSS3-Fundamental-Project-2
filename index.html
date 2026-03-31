@@ -6,33 +6,67 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>360° Virtual Tour | Modern Vanilla JS Showcase</title>
+    <title>
+      360° Panoramic Scenes Virtual Tour Brain Tree | JavaScript (Vanilla),
+      HTML5, CSS3, Marzipano
+    </title>
     <meta
       name="description"
-      content="A stylish beginner-friendly 360-degree virtual tour showcase built with vanilla JavaScript, HTML, and CSS with interactive scenes, hotspots, and smooth UI animations."
+      content="360° Panoramic Scenes Virtual Tour Brain Tree is a framework-free SPA built with vanilla JavaScript, HTML5, CSS3, and Marzipano. Explore immersive panoramic rooms with hotspots, fullscreen controls, autorotate, and responsive UI."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#070a14" />
+    <meta
+      name="application-name"
+      content="360° Panoramic Scenes Virtual Tour Brain Tree"
     />
     <meta
       name="keywords"
-      content="360 virtual tour, marzipano, vanilla javascript, html css, educational project, ui animation, responsive design"
+      content="360 virtual tour, panoramic scenes, virtual reality tour, Marzipano, vanilla JavaScript, HTML5, CSS3, framework-free SPA, hotspot navigation, fullscreen tour, responsive web app, educational JavaScript project, Braintree virtual tour"
     />
     <meta name="author" content="Arnob Mahmud" />
-    <meta property="og:title" content="360° Virtual Tour | Vanilla JS Showcase" />
+    <meta name="creator" content="Arnob Mahmud" />
+    <meta name="publisher" content="Arnob Mahmud" />
+    <meta name="contact" content="contact@arnobmahmud.com" />
+    <meta name="url" content="https://360-panoramic-tour.vercel.app/" />
+    <link rel="canonical" href="https://360-panoramic-tour.vercel.app/" />
+    <meta
+      property="og:site_name"
+      content="360° Panoramic Scenes Virtual Tour Brain Tree"
+    />
+    <meta
+      property="og:title"
+      content="360° Panoramic Scenes Virtual Tour Brain Tree | JavaScript (Vanilla), HTML5, CSS3, Marzipano"
+    />
     <meta
       property="og:description"
-      content="Explore interactive panoramic scenes with a modern, responsive and educational vanilla JS UI."
+      content="Experience an immersive 360° virtual tour with scene hotspots, smooth controls, responsive layout, and a beginner-friendly vanilla JavaScript architecture."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/public/imagespreview.jpg" />
+    <meta property="og:url" content="https://360-panoramic-tour.vercel.app/" />
+    <meta
+      property="og:image"
+      content="https://360-panoramic-tour.vercel.app/tiles/0-entrance/preview.jpg"
+    />
+    <meta
+      property="og:image:alt"
+      content="360° panoramic entrance scene preview"
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="360° Virtual Tour | Modern Vanilla JS Showcase"
+      content="360° Panoramic Scenes Virtual Tour Brain Tree | Vanilla JS"
     />
     <meta
       name="twitter:description"
-      content="Interactive 360-degree tour with smooth animations, dynamic sections and deployment-ready structure."
+      content="Framework-free 360° virtual tour built with JavaScript, HTML5, CSS3, and Marzipano. Explore immersive scenes and hotspot navigation."
     />
-    <meta name="twitter:image" content="/public/imagespreview.jpg" />
+    <meta
+      name="twitter:image"
+      content="https://360-panoramic-tour.vercel.app/tiles/0-entrance/preview.jpg"
+    />
+    <meta name="twitter:image:alt" content="360° virtual tour preview image" />
+    <link rel="me" href="https://www.arnobmahmud.com" />
     <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
     <link rel="shortcut icon" href="/public/favicon.svg" />
     <link rel="stylesheet" href="vendor/reset.min.css" />
@@ -45,7 +79,7 @@
       <div class="max-w-9xl header-inner">
         <a href="#tour" class="brand">
           <img src="/public/favicon.svg" alt="Project logo" />
-          <span>Virtual Tour Showcase</span>
+          <span>Panoramic Virtual Tour</span>
         </a>
         <nav class="top-nav">
           <a href="#tour">Tour</a>
@@ -64,7 +98,21 @@
           <h1>Modern 360° Tour Learning Project</h1>
           <p>
             Explore immersive scenes, study reusable UI patterns, and learn how
-            a plain JavaScript project can look modern, smooth and deployment-ready.
+            a plain JavaScript project can look modern, smooth and
+            deployment-ready.
+          </p>
+          <p>
+            This showcase demonstrates a complete beginner-to-intermediate
+            learning workflow: scene-based architecture with Marzipano, reusable
+            DOM rendering utilities, responsive layout design, smooth
+            interaction states, accessibility-minded controls, SEO-ready
+            metadata, and production-focused deployment setup for Vercel.
+          </p>
+          <p>
+            You can use this project as a reference template to build virtual
+            tours for schools, museums, offices, real estate, and portfolio
+            experiences while practicing clean JavaScript fundamentals without
+            relying on heavy frameworks.
           </p>
           <div class="hero-badges" id="heroBadges"></div>
         </div>
@@ -82,44 +130,128 @@
 
           <div id="sceneList">
             <ul class="scenes">
-              <a href="javascript:void(0)" class="scene" data-id="0-entrance"><li class="text">Entrance</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="1-main-corridor"><li class="text">Main Corridor</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="2-sun-lounge"><li class="text">Sun Lounge</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="3-lounge-a"><li class="text">Lounge A</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="4-lounge-b"><li class="text">Lounge B</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="5-lounge-c"><li class="text">Lounge C</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="6-queit-area"><li class="text">Queit Area</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="7-kitchen"><li class="text">Kitchen</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="8-upstairs-corridor"><li class="text">Upstairs Corridor</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="9-room-a"><li class="text">Room A</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="10-room-b"><li class="text">Room B</li></a>
-              <a href="javascript:void(0)" class="scene" data-id="11-room-c"><li class="text">Room C</li></a>
+              <a href="javascript:void(0)" class="scene" data-id="0-entrance"
+                ><li class="text">Entrance</li></a
+              >
+              <a
+                href="javascript:void(0)"
+                class="scene"
+                data-id="1-main-corridor"
+                ><li class="text">Main Corridor</li></a
+              >
+              <a href="javascript:void(0)" class="scene" data-id="2-sun-lounge"
+                ><li class="text">Sun Lounge</li></a
+              >
+              <a href="javascript:void(0)" class="scene" data-id="3-lounge-a"
+                ><li class="text">Lounge A</li></a
+              >
+              <a href="javascript:void(0)" class="scene" data-id="4-lounge-b"
+                ><li class="text">Lounge B</li></a
+              >
+              <a href="javascript:void(0)" class="scene" data-id="5-lounge-c"
+                ><li class="text">Lounge C</li></a
+              >
+              <a href="javascript:void(0)" class="scene" data-id="6-queit-area"
+                ><li class="text">Queit Area</li></a
+              >
+              <a href="javascript:void(0)" class="scene" data-id="7-kitchen"
+                ><li class="text">Kitchen</li></a
+              >
+              <a
+                href="javascript:void(0)"
+                class="scene"
+                data-id="8-upstairs-corridor"
+                ><li class="text">Upstairs Corridor</li></a
+              >
+              <a href="javascript:void(0)" class="scene" data-id="9-room-a"
+                ><li class="text">Room A</li></a
+              >
+              <a href="javascript:void(0)" class="scene" data-id="10-room-b"
+                ><li class="text">Room B</li></a
+              >
+              <a href="javascript:void(0)" class="scene" data-id="11-room-c"
+                ><li class="text">Room C</li></a
+              >
             </ul>
           </div>
 
           <div id="titleBar"><h2 class="sceneName"></h2></div>
 
           <a href="javascript:void(0)" id="autorotateToggle">
-            <img class="icon off" src="/public/images/play.png" alt="Start autoplay" />
-            <img class="icon on" src="/public/images/pause.png" alt="Stop autoplay" />
+            <img
+              class="icon off"
+              src="/public/images/play.png"
+              alt="Start autoplay"
+            />
+            <img
+              class="icon on"
+              src="/public/images/pause.png"
+              alt="Stop autoplay"
+            />
           </a>
 
           <a href="javascript:void(0)" id="fullscreenToggle">
-            <img class="icon off" src="/public/images/fullscreen.png" alt="Enter fullscreen" />
-            <img class="icon on" src="/public/images/windowed.png" alt="Exit fullscreen" />
+            <img
+              class="icon off"
+              src="/public/images/fullscreen.png"
+              alt="Enter fullscreen"
+            />
+            <img
+              class="icon on"
+              src="/public/images/windowed.png"
+              alt="Exit fullscreen"
+            />
           </a>
 
           <a href="javascript:void(0)" id="sceneListToggle">
-            <img class="icon off" src="/public/images/expand.png" alt="Open scene list" />
-            <img class="icon on" src="/public/images/collapse.png" alt="Close scene list" />
+            <img
+              class="icon off"
+              src="/public/images/expand.png"
+              alt="Open scene list"
+            />
+            <img
+              class="icon on"
+              src="/public/images/collapse.png"
+              alt="Close scene list"
+            />
           </a>
 
-          <a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1"><img class="icon" src="/public/images/up.png" alt="Look up" /></a>
-          <a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2"><img class="icon" src="/public/images/down.png" alt="Look down" /></a>
-          <a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3"><img class="icon" src="/public/images/left.png" alt="Look left" /></a>
-          <a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4"><img class="icon" src="/public/images/right.png" alt="Look right" /></a>
-          <a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5"><img class="icon" src="/public/images/plus.png" alt="Zoom in" /></a>
-          <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6"><img class="icon" src="/public/images/minus.png" alt="Zoom out" /></a>
+          <a
+            href="javascript:void(0)"
+            id="viewUp"
+            class="viewControlButton viewControlButton-1"
+            ><img class="icon" src="/public/images/up.png" alt="Look up"
+          /></a>
+          <a
+            href="javascript:void(0)"
+            id="viewDown"
+            class="viewControlButton viewControlButton-2"
+            ><img class="icon" src="/public/images/down.png" alt="Look down"
+          /></a>
+          <a
+            href="javascript:void(0)"
+            id="viewLeft"
+            class="viewControlButton viewControlButton-3"
+            ><img class="icon" src="/public/images/left.png" alt="Look left"
+          /></a>
+          <a
+            href="javascript:void(0)"
+            id="viewRight"
+            class="viewControlButton viewControlButton-4"
+            ><img class="icon" src="/public/images/right.png" alt="Look right"
+          /></a>
+          <a
+            href="javascript:void(0)"
+            id="viewIn"
+            class="viewControlButton viewControlButton-5"
+            ><img class="icon" src="/public/images/plus.png" alt="Zoom in"
+          /></a>
+          <a
+            href="javascript:void(0)"
+            id="viewOut"
+            class="viewControlButton viewControlButton-6"
+            ><img class="icon" src="/public/images/minus.png" alt="Zoom out"
+          /></a>
         </div>
       </section>
 
@@ -154,7 +286,9 @@
 
     <footer class="site-footer">
       <div class="max-w-9xl">
-        <p>Built for educational learning with vanilla JavaScript fundamentals.</p>
+        <p>
+          Built for educational learning with vanilla JavaScript fundamentals.
+        </p>
         <p id="copyrightLine"></p>
       </div>
     </footer>
