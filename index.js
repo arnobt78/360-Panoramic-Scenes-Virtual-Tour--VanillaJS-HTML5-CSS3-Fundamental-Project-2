@@ -10,11 +10,25 @@
   const panoElement = document.querySelector("#pano");
   const sceneNameElement = document.querySelector("#titleBar .sceneName");
   const sceneListElement = document.querySelector("#sceneList");
-  const sceneElements = document.querySelectorAll("#sceneList .scene");
+  const sceneListUlElement = document.querySelector("#sceneList .scenes");
+  let sceneElements = [];
   const sceneListToggleElement = document.querySelector("#sceneListToggle");
   const autorotateToggleElement = document.querySelector("#autorotateToggle");
   const fullscreenToggleElement = document.querySelector("#fullscreenToggle");
   const fullscreenTargetElement = document.querySelector("#tourExperience");
+  const sceneSearchInputElement = document.querySelector("#sceneSearchInput");
+  const sceneTypeFilterElement = document.querySelector("#sceneTypeFilter");
+  const clearSceneFiltersBtnElement = document.querySelector("#clearSceneFiltersBtn");
+  const floorMiniMapElement = document.querySelector("#floorMiniMap");
+  const loadingOverlayElement = document.querySelector("#sceneLoadingOverlay");
+  const tourPrevBtnElement = document.querySelector("#tourPrevBtn");
+  const tourNextBtnElement = document.querySelector("#tourNextBtn");
+  const tourPlayBtnElement = document.querySelector("#tourPlayBtn");
+  const tourProgressBarElement = document.querySelector("#tourProgressBar");
+  const shortcutHelpBtnElement = document.querySelector("#shortcutHelpBtn");
+  const shortcutModalElement = document.querySelector("#shortcutModal");
+  const closeShortcutModalBtnElement = document.querySelector("#closeShortcutModalBtn");
+  const copySceneLinkBtnElement = document.querySelector("#copySceneLinkBtn");
 
   // ---------- Reusable DOM helpers ----------
   function createElement(tag, className, text) {
@@ -117,6 +131,16 @@
     return { data: sceneData, scene, view };
   });
 
+  const uiState = {
+    activeFloor: "all",
+    activeType: "",
+    searchTerm: "",
+    guidedTourPlaying: false,
+    guidedTourTimer: null,
+    guidedTourStepMs: 5000,
+    currentSceneId: scenes[0] ? scenes[0].data.id : "",
+  };
+
   const autorotate = Marzipano.autorotate({
     yawSpeed: 0.03,
     targetPitch: 0,
@@ -151,21 +175,13 @@
     showSceneList();
   }
 
-  scenes.forEach(function (sceneObject) {
-    const link = document.querySelector(
-      '#sceneList .scene[data-id="' + sceneObject.data.id + '"]',
-    );
-    if (!link) {
-      return;
-    }
-    link.addEventListener("click", function () {
-      // Sidebar click changes camera target and scene.
-      switchScene(sceneObject);
-      if (document.body.classList.contains("mobile")) {
-        hideSceneList();
-      }
-    });
-  });
+  renderFloorMiniMap();
+  renderSceneTypeFilter();
+  renderSceneList();
+  attachSceneFilterHandlers();
+  attachGuidedTourHandlers();
+  attachShortcutHandlers();
+  attachCopyLinkHandler();
 
   registerViewControlButtons(viewer);
 
@@ -177,9 +193,10 @@
   initScrollReveal();
   initParallax();
 
-  switchScene(scenes[0]);
+  switchScene(resolveInitialSceneFromUrl() || scenes[0]);
 
   function switchScene(sceneObject) {
+    showSceneLoadingOverlay();
     // Reset camera to scene's initial angles each time for predictable UX.
     stopAutorotate();
     sceneObject.view.setParameters(sceneObject.data.initialViewParameters);
@@ -187,6 +204,10 @@
     startAutorotate();
     updateSceneName(sceneObject);
     updateSceneList(sceneObject);
+    uiState.currentSceneId = sceneObject.data.id;
+    updateTourProgress(sceneObject);
+    syncSceneToUrl(sceneObject.data.id);
+    window.setTimeout(hideSceneLoadingOverlay, 320);
   }
 
   function updateSceneName(sceneObject) {
@@ -235,6 +256,349 @@
     } else {
       stopAutorotate();
     }
+  }
+
+  function normalizeSceneMeta(sceneData) {
+    return {
+      floor: sceneData.floor || "General",
+      type: sceneData.type || "Other",
+      tags: Array.isArray(sceneData.tags) ? sceneData.tags : [],
+    };
+  }
+
+  function getFilteredScenes() {
+    return scenes.filter(function (sceneObject) {
+      const sceneData = sceneObject.data;
+      const meta = normalizeSceneMeta(sceneData);
+      const searchText = (
+        sceneData.name +
+        " " +
+        meta.floor +
+        " " +
+        meta.type +
+        " " +
+        meta.tags.join(" ")
+      ).toLowerCase();
+      const matchesFloor =
+        uiState.activeFloor === "all" || meta.floor === uiState.activeFloor;
+      const matchesType =
+        !uiState.activeType || meta.type.toLowerCase() === uiState.activeType;
+      const matchesSearch =
+        !uiState.searchTerm ||
+        searchText.indexOf(uiState.searchTerm.toLowerCase()) !== -1;
+      return matchesFloor && matchesType && matchesSearch;
+    });
+  }
+
+  function renderSceneList() {
+    const filtered = getFilteredScenes();
+    sceneListUlElement.innerHTML = "";
+
+    if (filtered.length === 0) {
+      const empty = createElement("li", "text", "No scenes match this filter.");
+      sceneListUlElement.appendChild(empty);
+      sceneElements = [];
+      return;
+    }
+
+    filtered.forEach(function (sceneObject) {
+      const anchor = createElement("a", "scene");
+      const item = createElement("li", "text", sceneObject.data.name);
+      anchor.href = "javascript:void(0)";
+      anchor.setAttribute("data-id", sceneObject.data.id);
+      anchor.appendChild(item);
+      anchor.addEventListener("click", function () {
+        switchScene(sceneObject);
+        if (document.body.classList.contains("mobile")) {
+          hideSceneList();
+        }
+      });
+      sceneListUlElement.appendChild(anchor);
+    });
+
+    sceneElements = sceneListElement.querySelectorAll(".scene");
+    const currentScene = findSceneById(uiState.currentSceneId);
+    if (currentScene) {
+      updateSceneList(currentScene);
+    }
+  }
+
+  function renderFloorMiniMap() {
+    if (!floorMiniMapElement) {
+      return;
+    }
+    const floors = Array.from(
+      new Set(
+        scenes.map(function (sceneObject) {
+          return normalizeSceneMeta(sceneObject.data).floor;
+        }),
+      ),
+    );
+    const allFloors = ["all"].concat(floors);
+    floorMiniMapElement.innerHTML = "";
+    allFloors.forEach(function (floorName) {
+      const label = floorName === "all" ? "All Floors" : floorName;
+      const chip = createElement("button", "floor-chip", label);
+      chip.type = "button";
+      chip.classList.toggle("active", uiState.activeFloor === floorName);
+      chip.addEventListener("click", function () {
+        uiState.activeFloor = floorName;
+        renderFloorMiniMap();
+        renderSceneList();
+      });
+      floorMiniMapElement.appendChild(chip);
+    });
+  }
+
+  function renderSceneTypeFilter() {
+    if (!sceneTypeFilterElement) {
+      return;
+    }
+    const types = Array.from(
+      new Set(
+        scenes.map(function (sceneObject) {
+          return normalizeSceneMeta(sceneObject.data).type;
+        }),
+      ),
+    );
+    sceneTypeFilterElement.innerHTML = '<option value="">All types</option>';
+    types.forEach(function (typeName) {
+      const option = createElement("option");
+      option.value = typeName.toLowerCase();
+      option.textContent = typeName;
+      sceneTypeFilterElement.appendChild(option);
+    });
+  }
+
+  function attachSceneFilterHandlers() {
+    if (sceneSearchInputElement) {
+      sceneSearchInputElement.addEventListener("input", function (event) {
+        uiState.searchTerm = event.target.value.trim();
+        renderSceneList();
+      });
+    }
+    if (sceneTypeFilterElement) {
+      sceneTypeFilterElement.addEventListener("change", function (event) {
+        uiState.activeType = event.target.value;
+        renderSceneList();
+      });
+    }
+    if (clearSceneFiltersBtnElement) {
+      clearSceneFiltersBtnElement.addEventListener("click", function () {
+        uiState.searchTerm = "";
+        uiState.activeType = "";
+        uiState.activeFloor = "all";
+        if (sceneSearchInputElement) {
+          sceneSearchInputElement.value = "";
+        }
+        if (sceneTypeFilterElement) {
+          sceneTypeFilterElement.value = "";
+        }
+        renderFloorMiniMap();
+        renderSceneList();
+      });
+    }
+  }
+
+  function getCurrentSceneIndex() {
+    return scenes.findIndex(function (sceneObject) {
+      return sceneObject.data.id === uiState.currentSceneId;
+    });
+  }
+
+  function goToNextScene() {
+    const index = getCurrentSceneIndex();
+    if (index < 0) {
+      return;
+    }
+    switchScene(scenes[(index + 1) % scenes.length]);
+  }
+
+  function goToPrevScene() {
+    const index = getCurrentSceneIndex();
+    if (index < 0) {
+      return;
+    }
+    const nextIndex = (index - 1 + scenes.length) % scenes.length;
+    switchScene(scenes[nextIndex]);
+  }
+
+  function adjustZoom(delta) {
+    const current = findSceneById(uiState.currentSceneId);
+    if (!current) {
+      return;
+    }
+    const currentParams = current.view.parameters();
+    current.view.setParameters({
+      fov: currentParams.fov + delta,
+    });
+  }
+
+  function nudgeView(deltaYaw, deltaPitch) {
+    const current = findSceneById(uiState.currentSceneId);
+    if (!current) {
+      return;
+    }
+    const params = current.view.parameters();
+    current.view.setParameters({
+      yaw: params.yaw + deltaYaw,
+      pitch: params.pitch + deltaPitch,
+    });
+  }
+
+  function setGuidedTourPlaying(isPlaying) {
+    uiState.guidedTourPlaying = isPlaying;
+    if (tourPlayBtnElement) {
+      tourPlayBtnElement.textContent = isPlaying ? "Tour Pause" : "Tour Play";
+    }
+    if (!isPlaying && uiState.guidedTourTimer) {
+      window.clearInterval(uiState.guidedTourTimer);
+      uiState.guidedTourTimer = null;
+    }
+    if (isPlaying && !uiState.guidedTourTimer) {
+      uiState.guidedTourTimer = window.setInterval(function () {
+        goToNextScene();
+      }, uiState.guidedTourStepMs);
+    }
+  }
+
+  function updateTourProgress(sceneObject) {
+    if (!tourProgressBarElement) {
+      return;
+    }
+    const index = scenes.findIndex(function (item) {
+      return item.data.id === sceneObject.data.id;
+    });
+    const progress = ((index + 1) / scenes.length) * 100;
+    tourProgressBarElement.style.width = progress + "%";
+  }
+
+  function attachGuidedTourHandlers() {
+    if (tourNextBtnElement) {
+      tourNextBtnElement.addEventListener("click", goToNextScene);
+    }
+    if (tourPrevBtnElement) {
+      tourPrevBtnElement.addEventListener("click", goToPrevScene);
+    }
+    if (tourPlayBtnElement) {
+      tourPlayBtnElement.addEventListener("click", function () {
+        setGuidedTourPlaying(!uiState.guidedTourPlaying);
+      });
+    }
+  }
+
+  function openShortcutModal() {
+    if (!shortcutModalElement) {
+      return;
+    }
+    shortcutModalElement.classList.add("open");
+    shortcutModalElement.setAttribute("aria-hidden", "false");
+  }
+
+  function closeShortcutModal() {
+    if (!shortcutModalElement) {
+      return;
+    }
+    shortcutModalElement.classList.remove("open");
+    shortcutModalElement.setAttribute("aria-hidden", "true");
+  }
+
+  function attachShortcutHandlers() {
+    if (shortcutHelpBtnElement) {
+      shortcutHelpBtnElement.addEventListener("click", openShortcutModal);
+    }
+    if (closeShortcutModalBtnElement) {
+      closeShortcutModalBtnElement.addEventListener("click", closeShortcutModal);
+    }
+    if (shortcutModalElement) {
+      shortcutModalElement.addEventListener("click", function (event) {
+        if (event.target.matches("[data-close-shortcuts='true']")) {
+          closeShortcutModal();
+        }
+      });
+    }
+    window.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeShortcutModal();
+        return;
+      }
+      if (event.key === "f" || event.key === "F") {
+        event.preventDefault();
+        if (screenfull.enabled) {
+          screenfull.toggle(fullscreenTargetElement || undefined);
+        }
+      } else if (event.code === "Space") {
+        event.preventDefault();
+        toggleAutorotate();
+      } else if (event.key === "n" || event.key === "N") {
+        goToNextScene();
+      } else if (event.key === "p" || event.key === "P") {
+        goToPrevScene();
+      } else if (event.key === "ArrowLeft") {
+        nudgeView(-0.08, 0);
+      } else if (event.key === "ArrowRight") {
+        nudgeView(0.08, 0);
+      } else if (event.key === "ArrowUp") {
+        nudgeView(0, -0.05);
+      } else if (event.key === "ArrowDown") {
+        nudgeView(0, 0.05);
+      } else if (event.key === "+" || event.key === "=") {
+        adjustZoom(-0.06);
+      } else if (event.key === "-" || event.key === "_") {
+        adjustZoom(0.06);
+      }
+    });
+  }
+
+  function showSceneLoadingOverlay() {
+    if (loadingOverlayElement) {
+      loadingOverlayElement.classList.add("active");
+    }
+    if (fullscreenTargetElement) {
+      fullscreenTargetElement.classList.add("scene-switching");
+    }
+  }
+
+  function hideSceneLoadingOverlay() {
+    if (loadingOverlayElement) {
+      loadingOverlayElement.classList.remove("active");
+    }
+    if (fullscreenTargetElement) {
+      fullscreenTargetElement.classList.remove("scene-switching");
+    }
+  }
+
+  function syncSceneToUrl(sceneId) {
+    const hash = "#scene=" + encodeURIComponent(sceneId);
+    if (window.location.hash !== hash) {
+      history.replaceState(null, "", hash);
+    }
+  }
+
+  function resolveInitialSceneFromUrl() {
+    const hash = window.location.hash || "";
+    if (hash.indexOf("#scene=") !== 0) {
+      return null;
+    }
+    const sceneId = decodeURIComponent(hash.replace("#scene=", ""));
+    return findSceneById(sceneId);
+  }
+
+  function attachCopyLinkHandler() {
+    if (!copySceneLinkBtnElement) {
+      return;
+    }
+    copySceneLinkBtnElement.addEventListener("click", function () {
+      const sceneId = uiState.currentSceneId;
+      const url = window.location.origin + window.location.pathname + "#scene=" + encodeURIComponent(sceneId);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url);
+      }
+      copySceneLinkBtnElement.textContent = "Copied";
+      window.setTimeout(function () {
+        copySceneLinkBtnElement.textContent = "Copy Link";
+      }, 1200);
+    });
   }
 
   function registerViewControlButtons(activeViewer) {

@@ -13,6 +13,7 @@ module.exports = [
         console: "readonly",
         IntersectionObserver: "readonly",
         navigator: "readonly",
+        history: "readonly",
       },
     },
     rules: {

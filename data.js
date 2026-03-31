@@ -5,6 +5,9 @@ var APP_DATA = {
     {
       "id": "0-entrance",
       "name": "Entrance",
+      "floor": "Ground Floor",
+      "type": "Entrance",
+      "tags": ["entry", "outdoor", "welcome"],
       "levels": [
         {
           "tileSize": 256,
@@ -49,6 +52,9 @@ var APP_DATA = {
     {
       "id": "1-main-corridor",
       "name": "Main Corridor",
+      "floor": "Ground Floor",
+      "type": "Corridor",
+      "tags": ["hallway", "navigation", "core-route"],
       "levels": [
         {
           "tileSize": 256,
@@ -105,6 +111,9 @@ var APP_DATA = {
     {
       "id": "2-sun-lounge",
       "name": "Sun Lounge",
+      "floor": "Ground Floor",
+      "type": "Lounge",
+      "tags": ["relax", "social", "daylight"],
       "levels": [
         {
           "tileSize": 256,
@@ -149,6 +158,9 @@ var APP_DATA = {
     {
       "id": "3-lounge-a",
       "name": "Lounge A",
+      "floor": "Ground Floor",
+      "type": "Lounge",
+      "tags": ["meeting", "social", "seating"],
       "levels": [
         {
           "tileSize": 256,
@@ -193,6 +205,9 @@ var APP_DATA = {
     {
       "id": "4-lounge-b",
       "name": "Lounge B",
+      "floor": "Ground Floor",
+      "type": "Lounge",
+      "tags": ["meeting", "quiet", "seating"],
       "levels": [
         {
           "tileSize": 256,
@@ -231,6 +246,9 @@ var APP_DATA = {
     {
       "id": "5-lounge-c",
       "name": "Lounge C",
+      "floor": "Ground Floor",
+      "type": "Lounge",
+      "tags": ["private", "seating", "small-group"],
       "levels": [
         {
           "tileSize": 256,
@@ -262,6 +280,9 @@ var APP_DATA = {
     {
       "id": "6-queit-area",
       "name": "Queit Area",
+      "floor": "Ground Floor",
+      "type": "Quiet Zone",
+      "tags": ["focus", "silent", "individual"],
       "levels": [
         {
           "tileSize": 256,
@@ -293,6 +314,9 @@ var APP_DATA = {
     {
       "id": "7-kitchen",
       "name": "Kitchen",
+      "floor": "Ground Floor",
+      "type": "Service",
+      "tags": ["utility", "break", "staff"],
       "levels": [
         {
           "tileSize": 256,
@@ -331,6 +355,9 @@ var APP_DATA = {
     {
       "id": "8-upstairs-corridor",
       "name": "Upstairs Corridor",
+      "floor": "Upstairs",
+      "type": "Corridor",
+      "tags": ["hallway", "upper-level", "navigation"],
       "levels": [
         {
           "tileSize": 256,
@@ -387,6 +414,9 @@ var APP_DATA = {
     {
       "id": "9-room-a",
       "name": "Room A",
+      "floor": "Upstairs",
+      "type": "Room",
+      "tags": ["private", "room", "upper-level"],
       "levels": [
         {
           "tileSize": 256,
@@ -425,6 +455,9 @@ var APP_DATA = {
     {
       "id": "10-room-b",
       "name": "Room B",
+      "floor": "Upstairs",
+      "type": "Room",
+      "tags": ["private", "room", "upper-level"],
       "levels": [
         {
           "tileSize": 256,
@@ -463,6 +496,9 @@ var APP_DATA = {
     {
       "id": "11-room-c",
       "name": "Room C",
+      "floor": "Upstairs",
+      "type": "Room",
+      "tags": ["private", "room", "upper-level"],
       "levels": [
         {
           "tileSize": 256,

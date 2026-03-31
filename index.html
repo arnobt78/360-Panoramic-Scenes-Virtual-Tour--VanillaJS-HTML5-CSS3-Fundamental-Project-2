@@ -113,7 +113,17 @@
         </div>
         <aside class="hero-sidebar reveal">
           <h2>Quick Navigator</h2>
+          <div id="floorMiniMap" class="floor-mini-map"></div>
           <div id="sceneQuickJump"></div>
+          <input
+            id="sceneSearchInput"
+            type="search"
+            placeholder="Search scenes..."
+            aria-label="Search scenes"
+          />
+          <select id="sceneTypeFilter" aria-label="Filter scenes by type">
+            <option value="">All types</option>
+          </select>
           <label for="sceneFilter" class="sr-only">Filter scenes</label>
           <select id="sceneFilter"></select>
         </aside>
@@ -122,9 +132,38 @@
       <!-- Tour Stage: Marzipano canvas and all runtime controls/hotspots. -->
       <section class="tour-wrapper max-w-9xl reveal" id="tour">
         <div class="tour-stage" id="tourExperience">
+          <div id="sceneLoadingOverlay" class="scene-loading-overlay" aria-hidden="true">
+            <div class="loader-dot"></div>
+            <p>Switching scene...</p>
+          </div>
+          <div class="tour-stage-tools">
+            <button id="tourPrevBtn" type="button" class="tour-tool-btn" aria-label="Previous scene">
+              Prev
+            </button>
+            <button id="tourPlayBtn" type="button" class="tour-tool-btn" aria-label="Toggle guided tour autoplay">
+              Tour Play
+            </button>
+            <button id="tourNextBtn" type="button" class="tour-tool-btn" aria-label="Next scene">
+              Next
+            </button>
+            <button id="copySceneLinkBtn" type="button" class="tour-tool-btn" aria-label="Copy current scene link">
+              Copy Link
+            </button>
+            <button id="shortcutHelpBtn" type="button" class="tour-tool-btn" aria-label="Open keyboard shortcuts help">
+              Shortcuts
+            </button>
+          </div>
+          <div id="tourProgressWrap" class="tour-progress-wrap" aria-label="Guided tour progress">
+            <div id="tourProgressBar" class="tour-progress-bar"></div>
+          </div>
           <div id="pano"></div>
 
           <div id="sceneList">
+            <div class="scene-list-tools">
+              <button id="clearSceneFiltersBtn" type="button" class="scene-list-clear">
+                Reset filters
+              </button>
+            </div>
             <ul class="scenes">
               <a href="javascript:void(0)" class="scene" data-id="0-entrance"
                 ><li class="text">Entrance</li></a
@@ -289,6 +328,24 @@
         <p id="copyrightLine"></p>
       </div>
     </footer>
+
+    <div id="shortcutModal" class="shortcut-modal" aria-hidden="true">
+      <div class="shortcut-modal-backdrop" data-close-shortcuts="true"></div>
+      <div class="shortcut-modal-card" role="dialog" aria-modal="true" aria-labelledby="shortcutModalTitle">
+        <h3 id="shortcutModalTitle">Keyboard Shortcuts</h3>
+        <ul class="shortcut-list">
+          <li><kbd>F</kbd> Toggle fullscreen</li>
+          <li><kbd>Space</kbd> Toggle autorotate</li>
+          <li><kbd>N</kbd> Next scene</li>
+          <li><kbd>P</kbd> Previous scene</li>
+          <li><kbd>+</kbd>/<kbd>-</kbd> Zoom in/out</li>
+          <li><kbd>Arrow keys</kbd> Move view</li>
+        </ul>
+        <button id="closeShortcutModalBtn" class="tour-tool-btn" type="button">
+          Close
+        </button>
+      </div>
+    </div>
 
     <!-- Vendor libraries (order matters: utilities first, then app data, then app logic). -->
     <script src="vendor/screenfull.min.js"></script>
