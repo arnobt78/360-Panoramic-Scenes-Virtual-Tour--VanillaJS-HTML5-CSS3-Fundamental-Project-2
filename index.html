@@ -73,8 +73,10 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="multiple-scenes">
+    <!-- Decorative fixed background layer (non-interactive). -->
     <div class="site-bg parallax-layer" aria-hidden="true"></div>
 
+    <!-- Global top navigation for section anchors. -->
     <header class="site-header">
       <div class="max-w-9xl header-inner">
         <a href="#tour" class="brand">
@@ -92,27 +94,20 @@
     </header>
 
     <main class="page-content">
+      <!-- Hero: project summary + quick scene navigation controls. -->
       <section class="hero max-w-9xl reveal" id="home">
         <div class="hero-copy">
           <p class="eyebrow">Vanilla JS + HTML + CSS</p>
           <h1>Modern 360° Tour Learning Project</h1>
           <p>
-            Explore immersive scenes, study reusable UI patterns, and learn how
-            a plain JavaScript project can look modern, smooth and
-            deployment-ready.
-          </p>
-          <p>
-            This showcase demonstrates a complete beginner-to-intermediate
-            learning workflow: scene-based architecture with Marzipano, reusable
-            DOM rendering utilities, responsive layout design, smooth
-            interaction states, accessibility-minded controls, SEO-ready
-            metadata, and production-focused deployment setup for Vercel.
-          </p>
-          <p>
-            You can use this project as a reference template to build virtual
-            tours for schools, museums, offices, real estate, and portfolio
-            experiences while practicing clean JavaScript fundamentals without
-            relying on heavy frameworks.
+            Explore immersive scenes while learning a complete beginner-to-intermediate
+            frontend workflow: scene-based architecture with Marzipano, reusable DOM
+            rendering utilities, responsive layout strategy, smooth interaction states,
+            accessibility-aware controls, SEO-ready metadata, and production-focused
+            Vercel deployment. This project is designed as a practical reference template
+            for building virtual tours for schools, museums, offices, real estate, and
+            portfolio showcases using clean vanilla JavaScript fundamentals without heavy
+            frameworks.
           </p>
           <div class="hero-badges" id="heroBadges"></div>
         </div>
@@ -124,6 +119,7 @@
         </aside>
       </section>
 
+      <!-- Tour Stage: Marzipano canvas and all runtime controls/hotspots. -->
       <section class="tour-wrapper max-w-9xl reveal" id="tour">
         <div class="tour-stage" id="tourExperience">
           <div id="pano"></div>
@@ -255,6 +251,7 @@
         </div>
       </section>
 
+      <!-- Educational showcase sections below the live tour. -->
       <section id="features" class="max-w-9xl reveal section-shell">
         <h2>Feature Highlights</h2>
         <div id="featureCards" class="grid-cards"></div>
@@ -284,7 +281,7 @@
       </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer reveal">
       <div class="max-w-9xl">
         <p>
           Built for educational learning with vanilla JavaScript fundamentals.
@@ -293,6 +290,7 @@
       </div>
     </footer>
 
+    <!-- Vendor libraries (order matters: utilities first, then app data, then app logic). -->
     <script src="vendor/screenfull.min.js"></script>
     <script src="vendor/bowser.min.js"></script>
     <script src="vendor/marzipano.js"></script>

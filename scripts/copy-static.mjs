@@ -6,7 +6,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const dist = path.join(root, "dist");
 
+// Root-level files required at runtime.
 const rootFiles = ["index.html", "index.js", "style.css", "data.js", "LICENSE"];
+// Asset directories copied recursively for deployment output.
 const assetDirs = ["public", "vendor", "tiles"];
 
 function copyDirectory(sourceDir, destinationDir) {
@@ -40,6 +42,7 @@ rootFiles.forEach((fileName) => {
 });
 
 assetDirs.forEach((directoryName) => {
+  // Copy directory trees (icons, vendor libs, panorama tiles).
   copyDirectory(path.join(root, directoryName), path.join(dist, directoryName));
 });
 

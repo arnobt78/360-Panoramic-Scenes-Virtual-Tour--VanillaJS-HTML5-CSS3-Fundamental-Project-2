@@ -1,3 +1,5 @@
+// APP_DATA is the single source of truth for all panorama scenes.
+// Each scene defines its image levels, default camera view, and hotspots.
 var APP_DATA = {
   "scenes": [
     {
@@ -499,8 +501,12 @@ var APP_DATA = {
   ],
   "name": "Project Title",
   "settings": {
+    // mouseViewMode "drag" means click/touch drag to rotate camera.
     "mouseViewMode": "drag",
+    // autorotateEnabled toggles passive camera movement on idle.
     "autorotateEnabled": true,
+    // fullscreenButton/viewControlButtons are optional built-in generator flags;
+    // this project provides custom controls in index.html/index.js.
     "fullscreenButton": false,
     "viewControlButtons": false
   }
